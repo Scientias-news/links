@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scientias.nl – lees de artikelen uit onze posts</title>
+<meta name="description" content="Zag je een post van Scientias op Instagram? Tik hier op de post en lees het hele artikel.">
+<meta name="theme-color" content="#2B5941">
+<meta property="og:title" content="Scientias.nl – link in bio">
+<meta property="og:description" content="Alle artikelen uit onze Instagram-posts op één plek.">
+<meta property="og:image" content="icon.png">
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --groen: #2B5941;
+    --groen-donker: #1F4230;
+    --lichtgroen: #D7E6DC;
+    --tekst: #1E1E1E;
+    --grijs: #6B6F6C;
+    --achtergrond: #F4F6F4;
+    --wit: #FFFFFF;
+    --radius: 18px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--achtergrond);
+    color: var(--tekst);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+  .wrap { max-width: 520px; margin: 0 auto; }
+
+  /* Kop */
+  header {
+    background: var(--groen);
+    color: var(--wit);
+    padding: calc(28px + env(safe-area-inset-top)) 20px 26px;
+    border-radius: 0 0 28px 28px;
+  }
+  .merk { display: flex; align-items: center; gap: 14px; }
+  .merk img { width: 58px; height: 58px; border-radius: 50%; background: var(--groen-donker); padding: 14px; object-fit: contain; }
+  .merk h1 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: .2px; }
+  .merk p { margin: 2px 0 0; font-size: 13.5px; color: var(--lichtgroen); font-weight: 500; line-height: 1.35; }
+  .knop {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    margin-top: 20px; min-height: 54px; padding: 0 20px;
+    background: var(--wit); color: var(--groen);
+    border-radius: 14px; font-weight: 700; font-size: 16px;
+    box-shadow: 0 2px 0 rgba(0,0,0,.08);
+    transition: transform .1s ease;
+  }
+  .knop:active { transform: scale(.98); }
+  .knop svg { width: 18px; height: 18px; }
+
+  /* Uitleg + zoeken */
+  .intro { padding: 22px 20px 6px; }
+  .intro h2 { margin: 0; font-size: 19px; font-weight: 800; color: var(--groen); }
+  .intro p { margin: 6px 0 0; font-size: 14px; color: var(--grijs); line-height: 1.45; }
+  .zoek {
+    position: sticky; top: 0; z-index: 5;
+    padding: 12px 20px; background: var(--achtergrond);
+  }
+  .zoek label { position: relative; display: block; }
+  .zoek svg { position: absolute; left: 14px; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); color: var(--grijs); }
+  .zoek input {
+    width: 100%; height: 46px; padding: 0 14px 0 42px;
+    border: 1.5px solid #DCE3DE; border-radius: 12px; background: var(--wit);
+    font: 500 16px Montserrat, sans-serif; color: var(--tekst); outline: none;
+    -webkit-appearance: none;
+  }
+  .zoek input:focus { border-color: var(--groen); }
+
+  /* Posts */
+  main { padding: 4px 20px 10px; }
+  .uitgelicht, .tegel {
+    display: block; background: var(--wit); border-radius: var(--radius); overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 6px 18px rgba(43,89,65,.07);
+    transition: transform .12s ease;
+  }
+  .uitgelicht:active, .tegel:active { transform: scale(.98); }
+  .uitgelicht { margin-bottom: 16px; }
+  .beeld { position: relative; background: #E3E8E4; overflow: hidden; }
+  .beeld img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .uitgelicht .beeld { aspect-ratio: 3 / 4; }
+  .tegel .beeld { aspect-ratio: 3 / 4; }
+  .info { padding: 10px 12px 12px; }
+  .uitgelicht .info { padding: 14px 16px 16px; }
+  .meta { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--grijs); }
+  .meta .pijl { margin-left: auto; color: var(--groen); display: flex; }
+  .nieuw { background: var(--groen); color: var(--wit); font-size: 10.5px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; padding: 4px 8px; border-radius: 7px; }
+  .lees { margin-top: 8px; font-size: 16px; font-weight: 700; color: var(--groen); }
+  .raster { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .leeg { text-align: center; color: var(--grijs); padding: 30px 10px; font-size: 14px; }
+
+  footer { padding: 26px 20px calc(30px + env(safe-area-inset-bottom)); text-align: center; }
+  footer .knop { background: var(--groen); color: var(--wit); margin-top: 0; }
+  footer p { font-size: 12px; color: var(--grijs); margin: 16px 0 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="merk">
+      <img src="logo.png" alt="">
+      <div>
+        <h1>Scientias.nl</h1>
+        <p>Dagelijks wetenschapsnieuws, helder uitgelegd</p>
+      </div>
+    </div>
+    <a class="knop" href="https://scientias.nl/?utm_source=instagram&amp;utm_medium=social&amp;utm_campaign=linkinbio">
+      Naar Scientias.nl
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </header>
+
+  <section class="intro">
+    <h2>Zag je een post van ons?</h2>
+    <p>Tik op de post hieronder en lees meteen het hele artikel.</p>
+  </section>
+
+  <div class="zoek">
+    <label>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="zoek" type="search" placeholder="Zoek een onderwerp" aria-label="Zoek een post" autocomplete="off">
+    </label>
+  </div>
+
+  <main id="posts" aria-live="polite">
+    <noscript><p class="leeg">Bekijk alle artikelen op <a href="https://scientias.nl/">scientias.nl</a>.</p></noscript>
+  </main>
+
+  <footer>
+    <a class="knop" href="https://scientias.nl/?utm_source=instagram&amp;utm_medium=social&amp;utm_campaign=linkinbio">Meer wetenschapsnieuws op Scientias.nl</a>
+    <p>© Scientias.nl</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var UTM = 'utm_source=instagram&utm_medium=social&utm_campaign=linkinbio';
+  var main = document.getElementById('posts');
+  var zoek = document.getElementById('zoek');
+  var alle = [];
+
+  function link(url) { return url + (url.indexOf('?') < 0 ? '?' : '&') + UTM; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  function wanneer(iso) {
+    var d = new Date(iso.replace(' ', 'T'));
+    var nu = new Date();
+    var dag = function (x) { return new Date(x.getFullYear(), x.getMonth(), x.getDate()); };
+    var verschil = Math.round((dag(nu) - dag(d)) / 86400000);
+    var tijd = d.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' });
+    if (verschil <= 0) return 'Vandaag ' + tijd;
+    if (verschil === 1) return 'Gisteren';
+    if (verschil < 7) return d.toLocaleDateString('nl-NL', { weekday: 'long' });
+    return d.toLocaleDateString('nl-NL', { day: 'numeric', month: 'short' });
+  }
+  function isNieuw(iso) { return (new Date() - new Date(iso.replace(' ', 'T'))) < 36e5 * 18; }
+
+  function kaart(p, groot) {
+    var nieuw = isNieuw(p.datum);
+    return '<a class="' + (groot ? 'uitgelicht' : 'tegel') + '" href="' + esc(link(p.url)) + '" aria-label="' + esc(p.titel) + '">' +
+      '<div class="beeld"><img src="' + esc(p.beeld) + '" alt="" loading="' + (groot ? 'eager' : 'lazy') + '"></div>' +
+      '<div class="info"><div class="meta">' + (nieuw && groot ? '<span class="nieuw">Nieuw</span>' : '') +
+      '<span>' + esc(groot ? wanneer(p.datum) : wanneer(p.datum).replace(/^Vandaag .*/, 'Vandaag')) + '</span><span class="pijl" aria-hidden="true">' +
+      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>' +
+      (groot ? '<div class="lees">Lees het artikel</div>' : '') +
+      '</div></a>';
+  }
+
+  function toon(lijst, gefilterd) {
+    if (!lijst.length) {
+      main.innerHTML = '<p class="leeg">' + (gefilterd ? 'Geen post gevonden. Probeer een ander woord.' : 'Nog geen posts.') + '</p>';
+      return;
+    }
+    var html = gefilterd ? '' : kaart(lijst[0], true);
+    var rest = gefilterd ? lijst : lijst.slice(1);
+    if (rest.length) html += '<div class="raster">' + rest.map(function (p) { return kaart(p, false); }).join('') + '</div>';
+    main.innerHTML = html;
+  }
+
+  zoek.addEventListener('input', function () {
+    var q = zoek.value.trim().toLowerCase();
+    if (!q) return toon(alle, false);
+    toon(alle.filter(function (p) { return (p.titel + ' ' + p.rubriek).toLowerCase().indexOf(q) >= 0; }), true);
+  });
+
+  fetch('posts.json?v=' + Date.now())
+    .then(function (r) { return r.json(); })
+    .then(function (data) { alle = data; toon(alle, false); })
+    .catch(function () { main.innerHTML = '<p class="leeg">Kon de posts niet laden. Bekijk alle artikelen op <a href="https://scientias.nl/">scientias.nl</a>.</p>'; });
+})();
+</script>
+</body>
+</html>
